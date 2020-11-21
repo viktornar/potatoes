@@ -45,7 +45,7 @@ public class User extends BaseEntity {
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId")
-    private Set<Cart> cart = new HashSet<>();
+    private Set<Cart> carts = new HashSet<>();
 
     public User(String username, String name, String surname, String password, String passwordConfirm, Role role) {
         this.username = username;

@@ -88,6 +88,6 @@ public class PotatoesRunner implements CommandLineRunner {
         ));
 
         log.info("Exiting...");
-//        System.exit(0);
+        System.exit(0);
     }
 }

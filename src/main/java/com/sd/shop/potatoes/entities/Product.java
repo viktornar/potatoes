@@ -30,7 +30,7 @@ public class Product extends BaseEntity {
     private Currency currency;
 
     @ManyToMany(mappedBy = "products")
-    private Set<Cart> carts;
+    private Set<Cart> carts = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productId")
     private Set<Image> images = new HashSet<>();
@@ -44,7 +44,7 @@ public class Product extends BaseEntity {
     }
 
     public enum Currency {
-        EUR ("Eur"),
+        EUR ("€"),
         US_DOLLAR ("$");
 
         private final String displayValue;
