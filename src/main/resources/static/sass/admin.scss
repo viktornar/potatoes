@@ -1,0 +1,27 @@
+@import "common";
+
+.Admin {
+  @extend %content-page-aware !optional;
+
+  .slick-prev:before, .slick-next:before {
+    color: black;
+  }
+}
+
+.Admin__edit {
+  width: 100%;
+}
+
+.Admin__edit > button {
+  width: 100%;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.Admin__delete {
+  width: 100%;
+}
+
+.Admin__delete > button {
+  width: 100%;
+}

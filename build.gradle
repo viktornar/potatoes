@@ -1,0 +1,65 @@
+buildscript {
+	repositories {
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+	}
+	dependencies {
+		classpath "gradle.plugin.org.kravemir.gradle.sass:GradleSassPlugin:1.2.2"
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.4.0'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+	id 'org.kravemir.gradle.sass' version '1.2.2'
+}
+
+group = 'com.sd.shop'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	compile 'org.webjars:Semantic-UI:2.4.1'
+	compile 'org.webjars:jquery:3.1.1'
+	compile 'org.webjars:webjars-locator:0.30'
+	compile 'org.webjars.bower:slick-carousel:1.8.1'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+sass{
+	main {
+		srcDir = file("$projectDir/src/main/resources/static/sass")
+		outDir = file("$buildDir/resources/main/static")
+		outSubDir = "css"
+		registerInSourceSets ( 'main' )
+	}
+}
+
+build {
+	dependsOn(sass)
+}

@@ -1,0 +1,18 @@
+<nav xmlns:th="http://www.thymeleaf.org" class="Navigation" authorities="navigation" th:fragment="navigation (path)">
+    <div class="ui menu">
+        <div class="ui container">
+            <div class="item header">
+                <a href="#" >
+                    <img th:src="@{/images/potatoes.svg}"
+                         class="Navigation__item"
+                         alt="logo"/>
+                </a>
+            </div>
+
+            <div th:replace="fragments/menuItem :: menuItem ('/',${path},'welcome page','Welcome')">
+            </div>
+            <div th:replace="fragments/menuItem :: menuItem ('/admin',${path},'admin page','Admin')">
+            </div>
+        </div>
+    </div>
+</nav>

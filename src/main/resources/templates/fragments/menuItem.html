@@ -1,0 +1,5 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="menuItem (path,active,title,name)" th:class="${active==path ? 'active item' : 'item'}">
+    <a th:href="@{__${path}__}" th:title="${title}" class="Navigation_item">
+        <span th:text="${name}">Template</span>
+    </a>
+</div>

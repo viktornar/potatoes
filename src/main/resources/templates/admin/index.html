@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navigation :: navigation ('/admin')"></nav>
+<div id="root" class="Admin">
+    <div class="ui container">
+        <div class="ui three cards">
+            <div class="ui card">
+                <div class="content">
+                    <div class="header">Create new product</div>
+                    Product images to add
+                </div>
+                <div class="content">
+                    <div class="header">Product name to add</div>
+                    <div class="meta">Product price to add</div>
+                    <div class="description">Product description to add</div>
+                </div>
+                <div class="extra content">
+                    <div class="ui fluid buttons">
+                        <button class="ui green basic button">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div class="ui card" th:each="product: ${products}">
+                <div class="content" style="padding: 40px">
+                    <div class="Admin__slider">
+                        <img th:each="image: ${product.images}" th:src="${image.base64}"/>
+                    </div>
+                </div>
+                <div class="content">
+                    <div class="header" th:text="${product.name}">Product name to add</div>
+                    <div class="meta" th:text="${product.price} + ' ' + ${product.currency.displayValue}">Product price to add</div>
+                    <div class="description" th:text="${product.description}">Product description to add</div>
+                </div>
+                <div class="extra content">
+                    <div class="ui two buttons">
+                        <form class="Admin__edit" action="#" th:action="@{'/admin/edit/{id}'(id=${product.id})}" th:method="post">
+                            <button type="submit" class="ui green basic button">Edit</button>
+                        </form>
+                        <form class="Admin__delete" action="#" th:action="@{'/admin/delete/{id}'(id=${product.id})}" th:method="delete">
+                            <button type="submit" class="ui red basic button">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+<script th:src="@{/js/admin.js}"></script>
+</body>
+</html>

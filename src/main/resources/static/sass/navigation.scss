@@ -1,0 +1,27 @@
+.Navigation {
+
+}
+.Navigation__item {
+  padding-top: 10px;
+  height: 70px;
+}
+
+.Navigation__bag {
+  background-color: #e35565 !important;
+}
+
+.bag .bag__quantity {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  color: #0c0b10;
+  font-weight: bold;
+  font-size: 0.7em;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 50%;
+  background-color: #eabf00;
+  position: absolute;
+  bottom: 16px;
+  right: 8px;
+}

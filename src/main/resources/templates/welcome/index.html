@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navigation :: navigation ('/')"></nav>
+<div id="root" class="WelcomePage">
+    <div class="WelcomePage__intro intro">
+        <div class="intro__content">
+            <h1>
+                Discover a new world of potates
+            </h1>
+            <p>
+                Potato, Solanum tuberosum, is an herbaceous perennial plant in the family Solanaceae which is grown for
+                its edible tubers. The potato plant has a branched stem and alternately arranged leaves consisting of
+                leaflets which are both of unequal size and shape.
+            </p>
+            <button class="ui button primary">Start shopping</button>
+            <p>
+                Look below to see what kind of potates exist and possible to buy in our shop.
+            </p>
+        </div>
+    </div>
+    <div class="WelcomePage__info ui container">
+        <div class="ui items">
+            <div class="item" th:each="product : ${products}">
+                <div class="ui medium image">
+                    <img th:src="${product.images[0].base64}">
+                </div>
+                <div class="content">
+                    <a class="header" th:text="${product.name}">Name</a>
+                    <div class="description" th:text="${product.description}">Description</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
