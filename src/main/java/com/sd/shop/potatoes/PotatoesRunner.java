@@ -29,7 +29,7 @@ public class PotatoesRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Running...");
+        log.info("Running data filling...");
 
         log.info("Starting population product population with images");
         Product savedProduct = productRepository.save(new Product(
@@ -39,6 +39,7 @@ public class PotatoesRunner implements CommandLineRunner {
                 2.75,
                 Product.Currency.EUR
         ));
+
 
         imageRepository.save(new Image(
                 "image 1",
@@ -72,7 +73,7 @@ public class PotatoesRunner implements CommandLineRunner {
                 savedProduct.getId()
         ));
 
-        log.info("Starting user population with authorities");
+        log.info("Starting user filling with authorities");
 
         Role savedBuyerRole = roleRepository.save(new Role(Role.Type.BUYER));
         Role savedAdminRole = roleRepository.save(new Role(Role.Type.ADMIN));
@@ -87,7 +88,7 @@ public class PotatoesRunner implements CommandLineRunner {
                 savedBuyerRole
         ));
 
-        log.info("Exiting...");
-        System.exit(0);
+        log.info("Exiting data filling...");
+//        System.exit(0);
     }
 }

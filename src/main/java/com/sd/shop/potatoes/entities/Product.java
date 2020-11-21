@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,8 +22,10 @@ public class Product extends BaseEntity {
     @Column(length = 500)
     private String description;
     @Column
+    @Positive
     private int count;
     @Column
+    @Positive
     private double price;
 
     @Enumerated(EnumType.STRING)
