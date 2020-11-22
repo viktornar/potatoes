@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,5 +28,10 @@ public class Cart extends BaseEntity {
     private Long userId;
 
     @ManyToMany
+    @JoinTable(
+            name = "cart_product",
+            joinColumns = @JoinColumn(name="cart_id"),
+            inverseJoinColumns = @JoinColumn(name="product_id")
+    )
     private Set<Product> products = new HashSet<>();
 }
