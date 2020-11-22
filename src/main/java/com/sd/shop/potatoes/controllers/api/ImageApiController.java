@@ -2,6 +2,7 @@ package com.sd.shop.potatoes.controllers.api;
 
 import com.sd.shop.potatoes.entities.Image;
 import com.sd.shop.potatoes.entities.Product;
+import com.sd.shop.potatoes.exceptions.ImageConflict;
 import com.sd.shop.potatoes.exceptions.ProductNotFound;
 import com.sd.shop.potatoes.repositories.ImageRepository;
 import com.sd.shop.potatoes.repositories.ProductRepository;
@@ -22,14 +23,14 @@ public class ImageApiController {
     private final ProductRepository productRepository;
 
     @GetMapping("/api/images")
-    public List<Image> getProducts() {
+    public List<Image> getImages() {
         return (List<Image>) Optional.of(imageRepository.findAll()).orElse(new ArrayList<>());
     }
 
     @PostMapping("/api/images/new")
-    public Image getProducts(@RequestBody Image image) throws ProductNotFound {
+    public Image createNewImage(@RequestBody Image image) throws ProductNotFound, ImageConflict {
         if (productRepository.existsById(image.getProductId())) {
-            return Optional.of(imageRepository.save(image)).orElse(new Image());
+            return Optional.of(imageRepository.save(image)).orElseThrow(() -> new ImageConflict("Was not able to save image"));
         }
 
         throw new ProductNotFound(String.format("Product with id %s not exist", image.getProductId()));
