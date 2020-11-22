@@ -1,6 +1,7 @@
 package com.sd.shop.potatoes.controllers.api;
 
 import com.sd.shop.potatoes.entities.Product;
+import com.sd.shop.potatoes.exceptions.ProductNotFound;
 import com.sd.shop.potatoes.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -40,5 +41,20 @@ public class ProductApiController {
     Product createNewProduct(@RequestBody Product product) {
         log.info("New product from body: {}", product);
         return Optional.of(productRepository.save(product)).orElse(new Product());
+    }
+
+    @PutMapping("/api/products/{id}")
+    Product updateProduct(@RequestBody Product product, @PathVariable Long id) throws ProductNotFound {
+        Optional<Product> productForUpdateOptional = productRepository.findById(id);
+        if (productForUpdateOptional.isPresent()) {
+            Product productForUpdate = productForUpdateOptional.get();
+
+            productForUpdate.setName(product.getName());
+            productForUpdate.setDescription(product.getDescription());
+
+            return productRepository.save(productForUpdate);
+        }
+
+        throw new ProductNotFound("");
     }
 }
