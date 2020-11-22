@@ -22,7 +22,12 @@ public class ProductApiController {
     }
 
     @GetMapping("/api/products/query")
-    List<Product> getProductsByQueryMethod(@RequestParam String name, @RequestParam Double price) {
+    List<Product> getProductsByQuery(@RequestParam String name, @RequestParam Double price) {
         return (List<Product>) Optional.of(productRepository.findByNameAndPriceGreaterThan(name, price)).orElse(new ArrayList<>());
+    }
+
+    @GetMapping("/api/products/query")
+    List<Product> getProductsByQuery(@RequestParam String name, @RequestParam Double price, @RequestParam int count) {
+        return (List<Product>) Optional.of(productRepository.findByNameOrPriceGreaterThanOrCountGreaterThan(name, price, count)).orElse(new ArrayList<>());
     }
 }

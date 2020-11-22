@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long> {
     Iterable<Product> findByNameAndPriceGreaterThan(String name, Double price);
 
-    // Turit rasti pagal pavadinima arba pagal kaina didesne nei arba kiekis didesnis nei
+    Iterable<Product> findByNameOrPriceGreaterThanOrCountGreaterThan(String name, Double price, int count);
 }
