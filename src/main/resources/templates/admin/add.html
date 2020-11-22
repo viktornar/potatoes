@@ -2,9 +2,48 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
-<nav th:replace="fragments/navigation :: navigation ('/')"></nav>
+<nav th:replace="fragments/navigation :: navigation ('/admin')"></nav>
 <div id="root" class="Admin">
-
+    <div class="ui container">
+        <form class="ui form" th:object="${product}" th:action="@{/admin/add}"
+              th:method="post">
+            <div class="field">
+                <label>Product name</label>
+                <div class="ui input">
+                    <input name="name" placeholder="Product name ..." type="text" th:field="*{name}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Product description</label>
+                <textarea name="description" placeholder="Tell more about you product ..." rows="3"
+                          th:field="*{description}"></textarea>
+            </div>
+            <div class="field">
+                <label>Product price</label>
+                <div class="ui input">
+                    <input name="price" step="0.01" placeholder="Product price ..." type="number" th:field="*{price}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Product count</label>
+                <div class="ui input">
+                    <input name="price" step="1" placeholder="Product count ..." type="number" th:field="*{count}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Product currency</label>
+                <div class="ui selection">
+                    <select name="currency" class="ui dropdown" th:field="*{currency}">
+                        <option th:each="currency : ${T(com.sd.shop.potatoes.entities.Product.Currency).values()}"
+                                th:value="${currency}" th:text="${currency.displayValue}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <button class="ui button">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>

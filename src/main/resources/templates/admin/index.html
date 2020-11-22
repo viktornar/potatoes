@@ -17,9 +17,11 @@
                     <div class="description">Product description to add</div>
                 </div>
                 <div class="extra content">
-                    <div class="ui fluid buttons">
-                        <button class="ui green basic button">Add</button>
-                    </div>
+                    <form action="#" th:action="@{/admin/add}" th:method="get">
+                        <div class="ui fluid buttons">
+                            <button class="ui green basic button">Add</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="ui card" th:each="product: ${products}">

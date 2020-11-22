@@ -45,9 +45,20 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/admin/add")
-    String getProductByIdForAdd(Model model) {
+    @GetMapping(value = "/admin/add")
+    String addNewProduct(Model model) {
         model.addAttribute(new Product());
         return "admin/add";
+    }
+
+    @PostMapping("/admin/add")
+    String getProductByIdForAdd(@Valid Product product, BindingResult result) {
+        if (result.hasErrors()) {
+            return "admin/add";
+        }
+
+        productRepository.save(product);
+
+        return "redirect:/admin";
     }
 }
