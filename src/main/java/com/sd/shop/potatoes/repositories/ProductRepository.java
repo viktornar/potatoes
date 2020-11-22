@@ -4,8 +4,6 @@ import com.sd.shop.potatoes.entities.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
     Iterable<Product> findByNameAndPriceGreaterThan(String name, Double price);
