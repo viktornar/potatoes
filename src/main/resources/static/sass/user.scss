@@ -1,0 +1,15 @@
+@import "common";
+
+.User {
+  @extend %content-page-aware !optional;
+}
+
+.User__table tbody > tr > td:last-child {
+  text-align: center;
+}
+
+.User__button-group {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}

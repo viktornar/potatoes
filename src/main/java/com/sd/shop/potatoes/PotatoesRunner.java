@@ -1,6 +1,5 @@
 package com.sd.shop.potatoes;
 
-import com.sd.shop.potatoes.entities.Role;
 import com.sd.shop.potatoes.entities.Image;
 import com.sd.shop.potatoes.entities.Product;
 import com.sd.shop.potatoes.entities.User;
@@ -22,8 +21,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class PotatoesRunner implements CommandLineRunner {
     private final ProductRepository productRepository;
-    private final CartRepository cartRepository;
-    private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
@@ -75,17 +72,13 @@ public class PotatoesRunner implements CommandLineRunner {
 
         log.info("Starting user filling with authorities");
 
-        Role savedBuyerRole = roleRepository.save(new Role(Role.Type.BUYER));
-        Role savedAdminRole = roleRepository.save(new Role(Role.Type.ADMIN));
-        Role savedMerchantRole = roleRepository.save(new Role(Role.Type.MERCHANT));
-
         userRepository.save(new User(
                 "Jonas",
                 "Jonas",
                 "Jonauskas",
                 "password",
                 "password",
-                savedBuyerRole
+                User.Role.BUYER
         ));
 
         log.info("Exiting data filling...");

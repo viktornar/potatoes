@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navigation :: navigation ('/users', ${quantity})"></nav>
+<div id="root" class="Admin">
+    <div class="ui container">
+
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

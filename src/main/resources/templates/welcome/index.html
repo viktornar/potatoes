@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
-<nav th:replace="fragments/navigation :: navigation ('/')"></nav>
+<nav th:replace="fragments/navigation :: navigation ('/', ${quantity})"></nav>
 <div id="root" class="WelcomePage">
     <div class="WelcomePage__intro intro">
         <div class="intro__content">
@@ -14,7 +14,7 @@
                 its edible tubers. The potato plant has a branched stem and alternately arranged leaves consisting of
                 leaflets which are both of unequal size and shape.
             </p>
-            <button class="ui button primary">Start shopping</button>
+            <a class="ui button primary" th:href="@{'/products'}">Start shopping</a>
             <p>
                 Look below to see what kind of potates exist and possible to buy in our shop.
             </p>

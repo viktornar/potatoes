@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,5 +35,5 @@ public class Cart extends BaseEntity {
             joinColumns = @JoinColumn(name="cart_id"),
             inverseJoinColumns = @JoinColumn(name="product_id")
     )
-    private Set<Product> products = new HashSet<>();
+    private List<Product> products = new ArrayList<>();
 }

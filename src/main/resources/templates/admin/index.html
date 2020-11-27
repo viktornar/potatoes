@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
-<nav th:replace="fragments/navigation :: navigation ('/admin')"></nav>
+<nav th:replace="fragments/navigation :: navigation ('/admin', ${quantity})"></nav>
 <div id="root" class="Admin">
     <div class="ui container">
         <div class="ui three cards">
@@ -36,20 +36,18 @@
                     <div class="description" th:text="${product.description}">Product description to add</div>
                 </div>
                 <div class="extra content">
-                    <div class="ui two buttons">
-                        <form class="Admin__edit" action="#" th:action="@{'/admin/edit/{id}'(id=${product.id})}" th:method="post">
-                            <button type="submit" class="ui green basic button">Edit</button>
-                        </form>
-                        <form class="Admin__delete" action="#" th:action="@{'/admin/delete/{id}'(id=${product.id})}" th:method="delete">
-                            <button type="submit" class="ui red basic button">Delete</button>
-                        </form>
-                    </div>
+                    <form>
+                        <div class="ui two buttons">
+                            <input type="submit" th:formaction="@{'/admin/edit/{id}'(id=${product.id})}" class="ui green basic button" value="Edit" />
+                            <input type="submit" th:formaction="@{'/admin/delete/{id}'(id=${product.id})}" class="ui red basic button" value="Delete" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
-<script th:src="@{/js/admin.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

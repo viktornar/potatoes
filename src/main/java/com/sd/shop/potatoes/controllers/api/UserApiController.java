@@ -1,6 +1,7 @@
 package com.sd.shop.potatoes.controllers.api;
 
 import com.sd.shop.potatoes.entities.User;
+import com.sd.shop.potatoes.repositories.UserRepository;
 import com.sd.shop.potatoes.services.ShoppingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,10 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class UserApiController {
-    private final ShoppingService shoppingService;
+    private final UserRepository userRepository;
 
     @GetMapping("/api/users")
     List<User> getUser() {
-        return shoppingService.findAllUsers();
+        return (List<User>) userRepository.findAll();
     }
 }

@@ -1,18 +1,27 @@
-<nav xmlns:th="http://www.thymeleaf.org" class="Navigation" authorities="navigation" th:fragment="navigation (path)">
+<nav xmlns:th="http://www.thymeleaf.org" class="Navigation" authorities="navigation"
+     th:fragment="navigation (path, quantity)">
     <div class="ui menu">
         <div class="ui container">
-            <div class="item header">
-                <a href="#" >
-                    <img th:src="@{/images/potatoes.svg}"
-                         class="Navigation__item"
-                         alt="logo"/>
-                </a>
-            </div>
+            <a href="#" class="item header Navigation__item">
+                <img th:src="@{/images/potatoes.svg}"
+                     alt="logo"/>
+            </a>
 
-            <div th:replace="fragments/menuItem :: menuItem ('/',${path},'welcome page','Welcome')">
-            </div>
-            <div th:replace="fragments/menuItem :: menuItem ('/admin',${path},'admin page','Admin')">
-            </div>
+            <a th:replace="fragments/menuItem :: menuItem ('/', ${path}, 'welcome page', 'Welcome')">
+            </a>
+            <a th:replace="fragments/menuItem :: menuItem ('/products', ${path}, 'products order page', 'Products')">
+            </a>
+            <a th:replace="fragments/menuItem :: menuItem ('/users', ${path}, 'users page', 'Users')">
+            </a>
+            <a th:replace="fragments/menuItem :: menuItem ('/admin', ${path}, 'products admin page', 'Products administration')">
+            </a>
+
+            <a th:href="@{'/carts'}" class="right item Navigation__bag bag">
+                <img th:src="@{/images/bag-icon.png}"
+                     class="ui image"
+                     alt="logo"/>
+                <span class="bg bag__quantity" th:text="${quantity}">0</span>
+            </a>
         </div>
     </div>
 </nav>

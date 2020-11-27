@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header"></head>
 <body>
-<nav th:replace="fragments/navigation :: navigation ('/admin')"></nav>
+<nav th:replace="fragments/navigation :: navigation ('/admin', ${quantity})"></nav>
 <div id="root" class="Admin">
     <div class="ui container">
         <form class="ui form" th:object="${product}" th:action="@{'/admin/edit/{id}/save'(id=${product.id})}" th:method="post">

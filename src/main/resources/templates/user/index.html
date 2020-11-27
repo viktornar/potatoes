@@ -1,7 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head></head>
+<head th:replace="fragments/header :: header"></head>
 <body>
-<h1>[[${user.name}]]</h1>
+<nav th:replace="fragments/navigation :: navigation ('/users', ${quantity})"></nav>
+<div id="root" class="User">
+    <div class="ui container">
+        <form>
+            <table class="ui celled table User__table">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.surname}"></td>
+                    <td>
+                        <div class="ui buttons">
+                            <input type="submit" th:formaction="@{'/users/{id}/edit'(id=${user.id})}" class="ui button" value="Edit"/>
+                            <div class="or"></div>
+                            <input type="submit" th:formaction="@{'/users/{id}/delete'(id=${user.id})}" class="ui positive button" value="Delete" />
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="User__button-group">
+                <input type="submit" class="ui button" th:formaction="@{'/users/add'}" value="Add new user" />
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

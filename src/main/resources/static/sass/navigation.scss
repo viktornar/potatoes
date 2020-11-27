@@ -1,9 +1,14 @@
 .Navigation {
 
 }
+
 .Navigation__item {
-  padding-top: 10px;
   height: 70px;
+}
+
+.Navigation__item img {
+  // height: auto;
+  width: 55px !important;
 }
 
 .Navigation__bag {

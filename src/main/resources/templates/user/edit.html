@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/navigation :: navigation ('/users', ${quantity})"></nav>
+<div id="root" class="User">
+    <div class="ui container">
+        <form class="ui form" th:object="${user}" th:action="@{'/users/{id}/edit'(id=${user.id})}" th:method="post">
+            <div th:with="valid=${!#fields.hasErrors('username')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>Username</label>
+                <div class="ui input" >
+                    <input name="username" placeholder="Username ..." type="text" th:field="*{username}">
+                </div>
+                <span class="help-inline" th:errors="*{username}">Error</span>
+            </div>
+            <div th:with="valid=${!#fields.hasErrors('name')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>Name</label>
+                <textarea name="name" placeholder="Name ..." rows="3"
+                          th:field="*{name}"></textarea>
+            </div>
+            <div th:with="valid=${!#fields.hasErrors('surname')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>Surname</label>
+                <div class="ui input">
+                    <input name="surname" placeholder="Surname ..." th:field="*{surname}">
+                </div>
+            </div>
+            <div th:with="valid=${!#fields.hasErrors('password')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>Password</label>
+                <div class="ui input">
+                    <input th:name="password" type="password" th:value="*{password}" />
+                </div>
+                <span class="help-inline" th:errors="*{password}">Error</span>
+            </div>
+            <div th:with="valid=${!#fields.hasErrors('passwordConfirm')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>Password confirm</label>
+                <div class="ui input">
+                    <input th:name="passwordConfirm" type="password" th:value="*{passwordConfirm}" />
+                </div>
+                <span class="help-inline" th:errors="*{passwordConfirm}">Error</span>
+            </div>
+            <div th:with="valid=${!#fields.hasErrors('role')}" th:class="${'field' + (valid ? '' : ' error')}">
+                <label>User role</label>
+                <div class="ui selection">
+                    <select name="currency" class="ui dropdown" th:field="*{role}">
+                        <option th:each="role : ${T(com.sd.shop.potatoes.entities.User.Role).values()}"
+                                th:value="${role}" th:text="${role.displayValue}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <button class="ui button">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

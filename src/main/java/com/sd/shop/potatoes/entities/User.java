@@ -23,6 +23,7 @@ import java.util.Set;
 )
 public class User extends BaseEntity {
     @Column(unique = true)
+    @NotBlank
     private String username;
 
     @Column
@@ -36,13 +37,14 @@ public class User extends BaseEntity {
     @Length(min=4, max = 10)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('ADMIN', 'MERCHANT', 'BUYER')", nullable = false)
+    private Role role;
+
     @Transient
     @NotBlank
     @Length(min=4, max = 10)
     private String passwordConfirm;
-
-    @ManyToOne
-    private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId")
     private Set<Cart> carts = new HashSet<>();
@@ -54,5 +56,21 @@ public class User extends BaseEntity {
         this.password = password;
         this.passwordConfirm = passwordConfirm;
         this.role = role;
+    }
+
+    public enum Role {
+        ADMIN("Admin"),
+        MERCHANT("Merchant"),
+        BUYER("Buyer");
+
+        private final String displayValue;
+
+        private Role(String displayValue) {
+            this.displayValue = displayValue;
+        }
+
+        public String getDisplayValue() {
+            return displayValue;
+        }
     }
 }

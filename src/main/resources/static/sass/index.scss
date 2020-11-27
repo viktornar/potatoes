@@ -16,6 +16,10 @@ body {
   border-radius: 0 !important;
 }
 
+.help-inline {
+  color: red;
+}
+
 #root {
   position: relative;
   min-height: 100vh;
@@ -26,3 +30,6 @@ body {
 @import "footer";
 @import "welcome";
 @import "admin";
+@import "cart";
+@import "user";
+
