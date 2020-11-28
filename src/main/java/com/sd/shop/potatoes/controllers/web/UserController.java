@@ -31,6 +31,7 @@ public class UserController {
         }
 
         model.addAttribute("quantity", quantity);
+
         model.addAttribute("users", userRepository.findAll());
         model.addAttribute("userError", redirectAttributes.getAttribute("userError"));
 
@@ -71,9 +72,7 @@ public class UserController {
             @PathVariable Long id,
             @RequestParam(required = false) Optional<String> name
     ) {
-        if (userRepository.findById(id).isPresent()) {
-            userRepository.delete(userRepository.findById(id).get());
-        }
+        userRepository.findById(id).ifPresent(userRepository::delete);
 
         return "redirect:/users";
     }

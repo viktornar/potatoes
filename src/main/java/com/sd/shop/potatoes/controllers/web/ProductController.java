@@ -6,7 +6,9 @@ import com.sd.shop.potatoes.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
@@ -17,7 +19,7 @@ public class ProductController {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
 
-    @RequestMapping("/products")
+    @GetMapping("/products")
     String getAllProducts(Model model) {
         int quantity = 0;
 
@@ -32,21 +34,21 @@ public class ProductController {
         return "product/index";
     }
 
-    @RequestMapping("/products/{productId}/addToCart")
-    String getAllProducts(@PathVariable Long productId) {
+    @PostMapping("/products/{productId}/addToCart")
+    String addProductToCart(@PathVariable Long productId) {
         updateCartWithProduct(productId, true);
 
         return "redirect:/products";
     }
 
-    @RequestMapping("/products/{productId}/increase")
+    @PostMapping("/products/{productId}/increase")
     String increaseProduct(@PathVariable Long productId) {
         updateCartWithProduct(productId, true);
 
         return "redirect:/carts";
     }
 
-    @RequestMapping("/products/{productId}/decrease")
+    @PostMapping("/products/{productId}/decrease")
     String decreaseProduct(@PathVariable Long productId) {
         updateCartWithProduct(productId, false);
 

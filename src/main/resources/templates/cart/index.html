@@ -25,10 +25,10 @@
                         <td>
                             <div class="ui buttons">
                                 <input type="submit" th:formaction="@{'/products/{id}/increase'(id=${element.key.id})}"
-                                       class="ui button" value="+"/>
+                                       class="ui button" value="+" th:formmethod="post"/>
                                 <div class="or"></div>
                                 <input type="submit" th:formaction="@{'/products/{id}/decrease'(id=${element.key.id})}"
-                                       class="ui positive button" value="-"/>
+                                       class="ui positive button" value="-" th:formmethod="post" />
                             </div>
                         </td>
                     </tr>

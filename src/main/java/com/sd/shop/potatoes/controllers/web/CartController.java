@@ -30,8 +30,8 @@ public class CartController {
             quantity = products.size();
         }
 
-        model.addAttribute("items", groupProducts(products));
         model.addAttribute("quantity", quantity);
+        model.addAttribute("items", groupProducts(products));
 
         return "cart/index";
     }
