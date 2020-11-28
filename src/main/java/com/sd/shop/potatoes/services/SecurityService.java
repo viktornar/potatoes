@@ -1,7 +1,5 @@
 package com.sd.shop.potatoes.services;
 
-import com.sd.shop.potatoes.entities.User;
-
 import javax.servlet.http.HttpServletRequest;
 
 public interface SecurityService {

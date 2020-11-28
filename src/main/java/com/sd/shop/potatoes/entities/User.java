@@ -1,6 +1,9 @@
 package com.sd.shop.potatoes.entities;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.ScriptAssert;
 
@@ -17,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ScriptAssert(
         lang = "javascript",
-        script="_this.passwordConfirm === _this.password",
+        script="_this.passwordConfirm === _this.decryptedPassword",
         message = "Password doesn't match",
         reportOn = "passwordConfirm"
 )
@@ -33,27 +36,30 @@ public class User extends BaseEntity {
     private String surname;
 
     @Column
-    @NotBlank
-    @Length(min=4, max = 10)
     private String password;
-
-    @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "ENUM('ADMIN', 'MERCHANT', 'BUYER')", nullable = false)
-    private Role role;
 
     @Transient
     @NotBlank
-    @Length(min=4, max = 10)
+    @Length(min = 4, max = 10)
     private String passwordConfirm;
+
+    @NotBlank
+    @Length(min = 4, max = 10)
+    @Transient
+    private String decryptedPassword;
+
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "ENUM('ADMIN', 'MERCHANT', 'BUYER')", nullable = false)
+    private Role role = Role.BUYER;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userId")
     private Set<Cart> carts = new HashSet<>();
 
-    public User(String username, String name, String surname, String password, String passwordConfirm, Role role) {
+    public User(String username, String name, String surname, String decryptedPassword, String passwordConfirm, Role role) {
         this.username = username;
         this.name = name;
         this.surname = surname;
-        this.password = password;
+        this.decryptedPassword = decryptedPassword;
         this.passwordConfirm = passwordConfirm;
         this.role = role;
     }

@@ -4,10 +4,12 @@ import com.sd.shop.potatoes.entities.Image;
 import com.sd.shop.potatoes.entities.Product;
 import com.sd.shop.potatoes.entities.User;
 import com.sd.shop.potatoes.repositories.*;
+import com.sd.shop.potatoes.services.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,8 +23,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class PotatoesRunner implements CommandLineRunner {
     private final ProductRepository productRepository;
-    private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -36,7 +38,6 @@ public class PotatoesRunner implements CommandLineRunner {
                 2.75,
                 Product.Currency.EUR
         ));
-
 
         imageRepository.save(new Image(
                 "image 1",
@@ -72,7 +73,7 @@ public class PotatoesRunner implements CommandLineRunner {
 
         log.info("Starting user filling with authorities");
 
-        userRepository.save(new User(
+        userService.save(new User(
                 "Jonas",
                 "Jonas",
                 "Jonauskas",
@@ -80,6 +81,17 @@ public class PotatoesRunner implements CommandLineRunner {
                 "password",
                 User.Role.BUYER
         ));
+//
+//        String password = passwordEncoder.encode("password");
+//
+//        userRepository.save(new User(
+//                "Jonas",
+//                "Jonas",
+//                "Jonauskas",
+//                password,
+//                password,
+//                User.Role.BUYER
+//        ));
 
         log.info("Exiting data filling...");
 //        System.exit(0);

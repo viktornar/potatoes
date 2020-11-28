@@ -24,17 +24,17 @@
                     <input name="surname" placeholder="Surname ..." th:field="*{surname}">
                 </div>
             </div>
-            <div th:with="valid=${!#fields.hasErrors('password')}" th:class="${'field' + (valid ? '' : ' error')}">
+            <div th:with="valid=${!#fields.hasErrors('decryptedPassword')}" th:class="${'field' + (valid ? '' : ' error')}">
                 <label>Password</label>
                 <div class="ui input">
-                    <input th:name="password" type="password" th:value="*{password}" />
+                    <input th:name="decryptedPassword" type="password" th:value="*{password}" />
                 </div>
                 <span class="help-inline" th:errors="*{password}">Error</span>
             </div>
             <div th:with="valid=${!#fields.hasErrors('passwordConfirm')}" th:class="${'field' + (valid ? '' : ' error')}">
                 <label>Password confirm</label>
                 <div class="ui input">
-                    <input th:name="passwordConfirm" type="password" th:value="*{passwordConfirm}" />
+                    <input th:name="passwordConfirm" type="password" th:value="*{password}" />
                 </div>
                 <span class="help-inline" th:errors="*{passwordConfirm}">Error</span>
             </div>

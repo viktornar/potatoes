@@ -5,6 +5,7 @@ import com.sd.shop.potatoes.entities.User;
 import com.sd.shop.potatoes.exceptions.UserNotFound;
 import com.sd.shop.potatoes.repositories.CartRepository;
 import com.sd.shop.potatoes.repositories.UserRepository;
+import com.sd.shop.potatoes.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class UserController {
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
+    private final UserService userService;
 
     @GetMapping("/users")
     public String getUser(Model model, RedirectAttributes redirectAttributes) {
@@ -96,7 +98,7 @@ public class UserController {
             u.setSurname(user.getSurname());
             u.setUsername(user.getUsername());
             u.setRole(user.getRole());
-            u.setPassword(user.getPassword());
+            u.setDecryptedPassword(user.getDecryptedPassword());
             u.setPasswordConfirm(user.getPasswordConfirm());
 
             userRepository.save(u);
@@ -116,5 +118,24 @@ public class UserController {
         userRepository.deleteById(id);
 
         return "redirect:/users";
+    }
+
+    @GetMapping("/register")
+    public String getRegister(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String postRegister(
+            @ModelAttribute("user") @Valid User user,
+            BindingResult result
+    ) {
+        if (result.hasErrors()) {
+            return "register";
+        }
+
+        userService.save(user);
+        return "redirect:login";
     }
 }
