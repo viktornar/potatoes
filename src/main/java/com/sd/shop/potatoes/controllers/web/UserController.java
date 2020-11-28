@@ -6,6 +6,8 @@ import com.sd.shop.potatoes.exceptions.UserNotFound;
 import com.sd.shop.potatoes.repositories.CartRepository;
 import com.sd.shop.potatoes.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +44,7 @@ public class UserController {
     @GetMapping("/users/{id}/edit")
     public String editUser(
             @PathVariable Long id,
+            // @CurrentSecurityContext(expression = "authentication.name") String name,
             Model model
     ) {
         int quantity = 0;

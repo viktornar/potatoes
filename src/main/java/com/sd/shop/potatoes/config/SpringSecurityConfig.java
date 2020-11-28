@@ -1,10 +1,14 @@
 package com.sd.shop.potatoes.config;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -13,14 +17,37 @@ import javax.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Qualifier("userDetailsServiceImpl")
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+// Dao authentication example.
+//    private final PasswordEncoder passwordEncoder;
+//    private final UserPrincipalDetailsService userPrincipalDetailsService;
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) {
+//        auth.authenticationProvider(daoAuthenticationProvider());
+//    }
+//    @Bean
+//    DaoAuthenticationProvider daoAuthenticationProvider() {
+//        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+//        daoAuthenticationProvider.setPasswordEncoder(this.passwordEncoder);
+//        daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
+//        return daoAuthenticationProvider;
+//    }
+
+
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("BUYER")
-        .and()
-                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("BUYER")
-        .and()
-                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
+// Example of integration database.
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+// Example with in memory user.
+//        auth.inMemoryAuthentication()
+//                .withUser("user1").password(passwordEncoder().encode("user1Pass")).roles("BUYER")
+//        .and()
+//                .withUser("user2").password(passwordEncoder().encode("user2Pass")).roles("BUYER")
+//        .and()
+//                .withUser("admin").password(passwordEncoder().encode("adminPass")).roles("ADMIN");
     }
 
     @Override
