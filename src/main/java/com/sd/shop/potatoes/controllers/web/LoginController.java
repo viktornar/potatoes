@@ -8,24 +8,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-//    @Autowired
-//    SecurityService securityService;
-
-    @RequestMapping(value = "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/login", method = {RequestMethod.GET})
     public String doLogin(
             @RequestParam(value = "error", required = false) String error,
             Model model
     ) {
-//        val username = securityService.findLoggedInUsername();
-//
-//        if (username != null) {
-//            return "redirect:/";
-//        }
+        model.addAttribute("error", false);
 
         if (error != null) {
-            model.addAttribute("loginError", true);
-        } else {
-            model.addAttribute("loginError", false);
+            model.addAttribute("error", true);
         }
 
         return "login";

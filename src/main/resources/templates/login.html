@@ -8,7 +8,7 @@
 </head>
 <body>
 <div style="display: flex; flex-direction: column; align-items: center">
-    <p th:if="${loginError}" style="color:red">[[#{user.login.bad.username.or.password}]]</p>
+    <p th:if="${error}" style="color:red">[[#{user.login.bad.username.or.password}]]</p>
     <form th:action="@{/login}" action="#" method="post">
         <p>
             <label for="username" >Username:</label>
