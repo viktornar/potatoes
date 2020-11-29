@@ -81,17 +81,6 @@ public class PotatoesRunner implements CommandLineRunner {
                 "password",
                 User.Role.BUYER
         ));
-//
-//        String password = passwordEncoder.encode("password");
-//
-//        userRepository.save(new User(
-//                "Jonas",
-//                "Jonas",
-//                "Jonauskas",
-//                password,
-//                password,
-//                User.Role.BUYER
-//        ));
 
         log.info("Exiting data filling...");
 //        System.exit(0);
