@@ -16,16 +16,16 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-public class ImageApiController {
+public class ImageApiController extends ApiRestController {
     private final ImageRepository imageRepository;
     private final ProductRepository productRepository;
 
-    @GetMapping("/api/images")
+    @GetMapping("/images")
     public List<Image> getImages() {
         return (List<Image>) Optional.of(imageRepository.findAll()).orElse(new ArrayList<>());
     }
 
-    @PostMapping("/api/images/new")
+    @PostMapping("/images/new")
     public Image createNewImage(@RequestBody Image image) throws ProductNotFound, ImageConflict {
         if (productRepository.existsById(image.getProductId())) {
             return Optional.of(imageRepository.save(image)).orElseThrow(() -> new ImageConflict("Was not able to save image"));
