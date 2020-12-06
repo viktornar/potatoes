@@ -13,7 +13,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.annotation.Description;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -31,9 +33,11 @@ public class ShoppingServiceTest {
     private final Cart cart = new Cart();
     private final Product product = new Product();
 
+
     @BeforeEach
     public void setUp() {
-        cart.setProducts(Collections.singletonList(product));
+        product.setId(1L);
+        cart.setProducts(new LinkedList<>(Arrays.asList(product)));
         when(cartRepository.findByUserIdAndPurchasedFalse(anyLong())).thenReturn(cart);
         when(cartRepository.existsByUserIdAndPurchasedFalse(anyLong())).thenReturn(true);
     }
@@ -51,5 +55,12 @@ public class ShoppingServiceTest {
     public void mustGetOneQuantityForGivenUsers(Long id) {
         int quantity = shoppingService.getProductQuantityForUserId(id);
         assertEquals(1, quantity);
+    }
+
+    @Test
+    void addOrRemoveProductToUserCart() {
+        shoppingService.addOrRemoveProductToUserCart(1L, false, product);
+        int quantity = shoppingService.getProductQuantityForUserId(1L);
+        assertEquals(0, quantity);
     }
 }

@@ -32,7 +32,7 @@ public class Product extends BaseEntity {
     @Column(columnDefinition = "ENUM('EUR', 'US_DOLLAR')", nullable = false)
     private Currency currency;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany(mappedBy = "products", fetch = FetchType.EAGER)
     private Set<Cart> carts = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "productId")

@@ -123,4 +123,17 @@ class ShoppingServiceTest {
 
         assertEquals(1 , quantity);
     }
+
+    @Test
+    void shouldRemoveProduct() {
+        productRepository.findById(1L).ifPresent(p -> {
+            shoppingService.addOrRemoveProductToUserCart(1L, true, p);
+        });
+
+        productRepository.findById(1L).ifPresent(p -> {
+            shoppingService.addOrRemoveProductToUserCart(1L, false, p);
+        });
+
+        assertEquals(0, shoppingService.getProductQuantityForUserId(1L));
+    }
 }

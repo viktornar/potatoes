@@ -7,7 +7,9 @@ import com.sd.shop.potatoes.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -35,10 +37,16 @@ public class ShoppingService {
             if (increase) {
                 cart.getProducts().add(p);
             } else {
-                cart.getProducts().remove(p);
+                List<Product> cartProducts = cart.getProducts();
+                for (Product product : cartProducts) {
+                    if (product.getId().equals(p.getId())) {
+                        cartProducts.remove(product);
+                        break;
+                    }
+                }
             }
         } else {
-            cart.setProducts(Collections.singletonList(p));
+            cart.setProducts(new LinkedList<>(Arrays.asList(p)));
             cart.setUserId(id);
         }
 
