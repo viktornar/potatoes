@@ -1,15 +1,14 @@
 package com.sd.shop.potatoes.controllers.web;
 
-import com.sd.shop.potatoes.entities.Cart;
 import com.sd.shop.potatoes.repositories.CartRepository;
 import com.sd.shop.potatoes.repositories.ProductRepository;
+import com.sd.shop.potatoes.services.ShoppingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
 
@@ -18,15 +17,11 @@ import java.util.*;
 public class ProductController {
     private final ProductRepository productRepository;
     private final CartRepository cartRepository;
+    private final ShoppingService shoppingService;
 
     @GetMapping("/products")
     String getAllProducts(Model model) {
-        int quantity = 0;
-
-        if (cartRepository.existsByUserIdAndPurchasedFalse(1L)) {
-            Cart cart = cartRepository.findByUserIdAndPurchasedFalse(1L);
-            quantity = cart.getProducts().size();
-        }
+        int quantity = shoppingService.getProductQuantityForUserId(1L);
 
         model.addAttribute("quantity", quantity);
         model.addAttribute("products", Optional.of(productRepository.findAll()).orElse(new ArrayList<>()));
@@ -57,21 +52,7 @@ public class ProductController {
 
     private void updateCartWithProduct(Long productId, boolean increase) {
         productRepository.findById(productId).ifPresent(p -> {
-            Cart cart = new Cart();
-
-            if (cartRepository.existsByUserIdAndPurchasedFalse(1L)) {
-                cart = cartRepository.findByUserIdAndPurchasedFalse(1L);
-                if (increase) {
-                    cart.getProducts().add(p);
-                } else {
-                    cart.getProducts().remove(p);
-                }
-            } else {
-                cart.setProducts(Collections.singletonList(p));
-                cart.setUserId(1L);
-            }
-
-            cartRepository.save(cart);
+            shoppingService.addOrRemoveProductToUserCart(1L, increase, p);
         });
     }
 }

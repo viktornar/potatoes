@@ -1,8 +1,8 @@
 package com.sd.shop.potatoes.controllers.web;
 
-import com.sd.shop.potatoes.entities.Cart;
 import com.sd.shop.potatoes.entities.Product;
 import com.sd.shop.potatoes.repositories.CartRepository;
+import com.sd.shop.potatoes.services.ShoppingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,18 +17,12 @@ import java.util.stream.Collectors;
 @Controller
 @RequiredArgsConstructor
 public class CartController {
-    private final CartRepository cartRepository;
+    private final ShoppingService shoppingService;
 
     @GetMapping("carts")
     String getCurrentUserCart(Model model) {
         List<Product> products = new ArrayList<>();
-        int quantity = 0;
-
-        if (cartRepository.existsByUserIdAndPurchasedFalse(1L)) {
-            Cart cart = cartRepository.findByUserIdAndPurchasedFalse(1L);
-            products = cart.getProducts();
-            quantity = products.size();
-        }
+        int quantity = shoppingService.getProductQuantityForUserId(1L);
 
         model.addAttribute("quantity", quantity);
         model.addAttribute("items", groupProducts(products));

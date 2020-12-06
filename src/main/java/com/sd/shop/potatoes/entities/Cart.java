@@ -29,7 +29,7 @@ public class Cart extends BaseEntity {
     @NotNull
     private Long userId;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "cart_product",
             joinColumns = @JoinColumn(name="cart_id"),

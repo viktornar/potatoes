@@ -1,7 +1,5 @@
 package com.sd.shop.potatoes.services;
 
-import com.sd.shop.potatoes.entities.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,18 +20,6 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-//    @Override
-//    public User findLoggedInUser() {
-//        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//
-//        if (userDetails instanceof UserDetails) {
-//            UserDetails user = (UserDetails) userDetails;
-//            return (User) userDetailsService.loadUserByUsername(user.getUsername());
-//        }
-//
-//        return null;
-//    }
 
     @Override
     public String findLoggedInUsername() {

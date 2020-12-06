@@ -1,7 +1,6 @@
 package com.sd.shop.potatoes.controllers.api;
 
 import com.sd.shop.potatoes.entities.Image;
-import com.sd.shop.potatoes.entities.Product;
 import com.sd.shop.potatoes.exceptions.ImageConflict;
 import com.sd.shop.potatoes.exceptions.ProductNotFound;
 import com.sd.shop.potatoes.repositories.ImageRepository;
@@ -9,7 +8,6 @@ import com.sd.shop.potatoes.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

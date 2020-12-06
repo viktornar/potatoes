@@ -1,14 +1,11 @@
 package com.sd.shop.potatoes.controllers.web;
 
-import com.sd.shop.potatoes.entities.Cart;
 import com.sd.shop.potatoes.entities.User;
-import com.sd.shop.potatoes.exceptions.UserNotFound;
 import com.sd.shop.potatoes.repositories.CartRepository;
 import com.sd.shop.potatoes.repositories.UserRepository;
+import com.sd.shop.potatoes.services.ShoppingService;
 import com.sd.shop.potatoes.services.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,15 +21,11 @@ public class UserController {
     private final UserRepository userRepository;
     private final CartRepository cartRepository;
     private final UserService userService;
+    private final ShoppingService shoppingService;
 
     @GetMapping("/users")
     public String getUser(Model model, RedirectAttributes redirectAttributes) {
-        int quantity = 0;
-
-        if (cartRepository.existsByUserIdAndPurchasedFalse(1L)) {
-            Cart cart = cartRepository.findByUserIdAndPurchasedFalse(1L);
-            quantity = cart.getProducts().size();
-        }
+        int quantity = shoppingService.getProductQuantityForUserId(1L);
 
         model.addAttribute("quantity", quantity);
 
@@ -49,12 +42,7 @@ public class UserController {
             // @CurrentSecurityContext(expression = "authentication.name") String name,
             Model model
     ) {
-        int quantity = 0;
-
-        if (cartRepository.existsByUserIdAndPurchasedFalse(1L)) {
-            Cart cart = cartRepository.findByUserIdAndPurchasedFalse(1L);
-            quantity = cart.getProducts().size();
-        }
+        int quantity = shoppingService.getProductQuantityForUserId(1L);
 
         model.addAttribute("quantity", quantity);
         Optional<User> userOptional = userRepository.findById(id);

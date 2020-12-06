@@ -1,7 +1,6 @@
 package com.sd.shop.potatoes.controllers.web;
 
 import com.sd.shop.potatoes.services.SecurityService;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

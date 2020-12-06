@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-//@RequiredArgsConstructor(onConstructor=@__(@Autowired))
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     private final JwtRequestFilter jwtRequestFilter;
@@ -72,7 +74,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 // This will work for JWT token based authentication
         http.authorizeRequests()
                 .antMatchers("/", "/js/**", "/register", "/css/**", "/images/**", "/api/authenticate").permitAll()
-                .antMatchers("/api/users").hasAuthority("ADMIN")
+                .antMatchers("/api/users").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 // Make sure we use stateless session; session won't be used to
